@@ -25,7 +25,7 @@ func execCommand(command string, args ...string) (string, error) {
 }
 
 func Solve(facelets string) string {
-	result, err := execCommand("java", "-cp", "dist", "kociemba.Search", facelets)
+	result, err := execCommand("java", "-cp", "../java/dist", "kociemba.Search", facelets)
 	if err != nil {
 		panic(err)
 	}

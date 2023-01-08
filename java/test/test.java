@@ -1,9 +1,9 @@
+package kociemba;
+
 import java.util.Random;
 import java.io.*;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.*;
-import kociemba.Tools;
-import kociemba.Search;
 
 public class test {
 

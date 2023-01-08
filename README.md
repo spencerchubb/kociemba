@@ -1,5 +1,10 @@
-# min2phase
-- Rubik's Cube solver or scrambler. [![Build Status](https://travis-ci.org/cs0x7f/min2phase.svg?branch=master)](https://travis-ci.org/cs0x7f/min2phase)
+# kociemba
+
+Rubik's Cube solver and scrambler for Go.
+The solver is based on Herbert Kociemba's two-phase algorithm.
+Further improvements were made by Shuang Chen to make the search much faster and require less memory.
+
+Shuang Chen wrote the Java code, and I made the Go wrapper so the solver can be used in Go programs.
 
 # Usage
 

@@ -29,8 +29,6 @@ build: $(DIST)
 
 $(DIST): $(SRC)
 	@javac -d dist $(SRC) -Xlint:all
-	@cp -f $(SRC) dist/kociemba
-	@cd dist && jar cfe twophase.jar kociemba/*.class kociemba/*.java
 
 run: $(DIST)
 	@java -jar $(DIST)

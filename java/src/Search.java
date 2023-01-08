@@ -95,8 +95,6 @@ public class Search {
     public static void main(String[] args) {
         if (args.length != 1) {
             System.out.println("error: expected 1 argument, got " + args.length);
-            System.out.println("Usage: java Search <facelets>");
-            System.out.println("Example: java Search \"UUUUUUUUURRRRRRRRRFFFFFFFFFDDDDDDDDDLLLLLLLLLBBBBBBBBB\"");
             return;
         }
 
