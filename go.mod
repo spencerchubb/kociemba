@@ -1,3 +1,3 @@
-module kociemba
+module github.com/spencerchubb/kociemba
 
-go 1.13
+go 1.19
