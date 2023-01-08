@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package cs.min2phase;
+package kociemba;
 
 /**
  * Rubik's Cube Solver.<br>
@@ -92,6 +92,20 @@ public class Search {
      */
     public static final int OPTIMAL_SOLUTION = 0x8;
 
+    public static void main(String[] args) {
+        if (args.length != 1) {
+            System.out.println("error: expected 1 argument, got " + args.length);
+            System.out.println("Usage: java Search <facelets>");
+            System.out.println("Example: java Search \"UUUUUUUUURRRRRRRRRFFFFFFFFFDDDDDDDDDLLLLLLLLLBBBBBBBBB\"");
+            return;
+        }
+
+        String facelets = args[0];
+
+        Search search = new Search();
+        String result = search.solution(facelets, 21, 500, 0, 0);
+        System.out.println(result);
+    }
 
     public Search() {
         for (int i = 0; i < 21; i++) {

@@ -2,8 +2,8 @@ import java.util.Random;
 import java.io.*;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.*;
-import cs.min2phase.Tools;
-import cs.min2phase.Search;
+import kociemba.Tools;
+import kociemba.Search;
 
 public class test {
 

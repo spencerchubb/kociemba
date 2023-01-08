@@ -1,4 +1,4 @@
-package cs.min2phase;
+package kociemba;
 
 class CoordCube {
     static final int N_MOVES = 18;

@@ -1,4 +1,4 @@
-package cs.min2phase;
+package kociemba;
 
 class Util {
     //Moves

@@ -4,8 +4,8 @@
 # Usage
 
 ```java
-import cs.min2phase.Search;
-import cs.min2phase.Tools;
+import kociemba.Search;
+import kociemba.Tools;
 
 public class demo {
 

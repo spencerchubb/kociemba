@@ -1,6 +1,4 @@
-twophase.jar
-cs/*
-ui/*
+dist/
 m2pT.data
 test.class
 FullTable.prunP

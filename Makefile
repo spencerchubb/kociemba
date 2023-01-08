@@ -5,8 +5,6 @@ src/Search.java \
 src/Util.java \
 src/Tools.java
 
-MAINPROG = example/MainProgram.java
-
 TESTSRC = test/test.java
 
 ifndef probe
@@ -25,14 +23,14 @@ DIST = dist/twophase.jar
 
 DISTTEST = dist/test.class
 
-.PHONY: build clean run testRnd testRndMP testRndStd testSel demo
+.PHONY: build clean run testRnd testRndMP testRndStd testSel
 
 build: $(DIST)
 
-$(DIST): $(SRC) $(MAINPROG)
-	@javac -d dist $(SRC) $(MAINPROG) -Xlint:all
-	@cp -f $(SRC) dist/cs/min2phase/
-	@cd dist && jar cfe twophase.jar ui.MainProgram ui/*.class cs/min2phase/*.class cs/min2phase/*.java
+$(DIST): $(SRC)
+	@javac -d dist $(SRC) -Xlint:all
+	@cp -f $(SRC) dist/kociemba
+	@cd dist && jar cfe twophase.jar kociemba/*.class kociemba/*.java
 
 run: $(DIST)
 	@java -jar $(DIST)
@@ -50,10 +48,6 @@ testRndStd: $(DISTTEST)
 
 testSel: $(DISTTEST)
 	@java -ea -cp dist:$(DIST) test 24
-
-demo: $(DIST)
-	@javac -d dist -cp dist:$(DIST) example/demo.java
-	@java -ea -cp dist:$(DIST) demo
 
 $(DISTTEST): $(DIST) $(TESTSRC)
 	@javac -d dist -cp dist:$(DIST) $(TESTSRC)
