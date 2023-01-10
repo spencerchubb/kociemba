@@ -23,9 +23,9 @@ ifndef ntest
 	ntest = 1000
 endif
 
-DIST = dist/twophase.jar
+DIST = dist/src
 
-DISTTEST = dist/test.class
+DISTTEST = dist/test
 
 .PHONY: build clean run testRnd testRndMP testRndStd testSel
 
@@ -38,24 +38,24 @@ run: $(DIST)
 	@java -jar $(DIST)
 
 serve: $(DIST)
-	@java -ea -cp dist:$(DIST) kociemba.Server
+	@java -ea -cp dist:$(DIST) src.Server
 
 testTables: $(DISTTEST)
-	@java -ea -cp dist:$(DIST) TablesTest
+	@java -ea -cp dist:$(DIST) test.TablesTest
 
 testRnd: $(DISTTEST)
-	@java -ea -cp dist:$(DIST) test 40 $(ntest) $(maxl) 10000000 $(probe) 0
+	@java -ea -cp dist:$(DIST) test.Test 40 $(ntest) $(maxl) 10000000 $(probe) 0
 
 testRndMP: $(DISTTEST)
-	@java -ea -cp dist:$(DIST) test 72 $(ntest) $(maxl) 10000000 $(probe) 0
+	@java -ea -cp dist:$(DIST) test.Test 72 $(ntest) $(maxl) 10000000 $(probe) 0
 
 testRndStd: $(DISTTEST)
-	@java -ea -cp dist:$(DIST) test 40 $(ntest) 30 10000000 $(probe) 0 | grep AvgT
-	@java -ea -cp dist:$(DIST) test 40 $(ntest) 21 10000000 $(probe) 0 | grep AvgT
-	@java -ea -cp dist:$(DIST) test 40 $(ntest) 20 10000000 $(probe) 0 | grep AvgT
+	@java -ea -cp dist:$(DIST) test.Test 40 $(ntest) 30 10000000 $(probe) 0 | grep AvgT
+	@java -ea -cp dist:$(DIST) test.Test 40 $(ntest) 21 10000000 $(probe) 0 | grep AvgT
+	@java -ea -cp dist:$(DIST) test.Test 40 $(ntest) 20 10000000 $(probe) 0 | grep AvgT
 
 testSel: $(DISTTEST)
-	@java -ea -cp dist:$(DIST) test 24
+	@java -ea -cp dist:$(DIST) test.Test 24
 
 $(DISTTEST): $(DIST) $(TESTSRC)
 	@javac -d dist -cp dist:$(DIST) $(TESTSRC)

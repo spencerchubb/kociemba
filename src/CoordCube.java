@@ -1,4 +1,4 @@
-package kociemba;
+package src;
 
 class CoordCube {
     // TODO these are redundant in CoordCube and Tables

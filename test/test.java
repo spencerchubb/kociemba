@@ -1,12 +1,13 @@
+package test;
+
 import java.util.Random;
 import java.io.*;
 import java.util.concurrent.*;
-import java.util.concurrent.atomic.*;
 
-import kociemba.Search;
-import kociemba.Tools;
+import src.Search;
+import src.Tools;
 
-public class test {
+public class Test {
 
     static void other() {
     }

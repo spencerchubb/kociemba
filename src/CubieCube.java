@@ -1,4 +1,4 @@
-package kociemba;
+package src;
 
 import java.util.Arrays;
 
@@ -470,7 +470,6 @@ class CubieCube {
     }
 
     static int initSym2Raw(final int N_RAW, char[] Sym2Raw, char[] Raw2Sym, char[] SymState, int coord) {
-        final int N_RAW_HALF = (N_RAW + 1) / 2;
         CubieCube c = new CubieCube();
         CubieCube d = new CubieCube();
         int count = 0, idx = 0;

@@ -1,4 +1,4 @@
-package kociemba;
+package src;
 
 import java.util.Random;
 import java.io.DataInput;
@@ -24,12 +24,6 @@ public class Tools {
         }
     }
 
-    private static void read(char[][] arr, DataInput in) throws IOException {
-        for (int i = 0; i < arr.length; i++) {
-            read(arr[i], in);
-        }
-    }
-
     private static void read(int[][] arr, DataInput in) throws IOException {
         for (int i = 0; i < arr.length; i++) {
             read(arr[i], in);
@@ -45,12 +39,6 @@ public class Tools {
     private static void write(int[] arr, DataOutput out) throws IOException {
         for (int i = 0; i < arr.length; i++) {
             out.writeInt(arr[i]);
-        }
-    }
-
-    private static void write(char[][] arr, DataOutput out) throws IOException {
-        for (int i = 0; i < arr.length; i++) {
-            write(arr[i], out);
         }
     }
 

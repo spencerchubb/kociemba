@@ -1,4 +1,4 @@
-package kociemba;
+package src;
 
 class Util {
     //Moves
