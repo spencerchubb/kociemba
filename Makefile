@@ -8,8 +8,12 @@ src/Tools.java \
 src/Util.java 
 
 TESTSRC = \
-test/test.java \
+test/Test.java \
 test/TablesTest.java
+
+DIST = dist/src
+
+DISTTEST = dist/test
 
 ifndef probe
 	probe = 0
@@ -22,10 +26,6 @@ endif
 ifndef ntest
 	ntest = 1000
 endif
-
-DIST = dist/src
-
-DISTTEST = dist/test
 
 .PHONY: build clean run testRnd testRndMP testRndStd testSel
 

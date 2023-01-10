@@ -6,6 +6,12 @@ Further improvements were made by Shuang Chen to make the search much faster and
 
 # Usage
 
+- Must be done on OS that has 'make' such as Ubuntu
+- Run 'make serve'
+- Send http requests to the server
+
+# Example Java code
+
 ```java
 import kociemba.Search;
 import kociemba.Tools;
