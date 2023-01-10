@@ -101,6 +101,7 @@ public class Search {
         Search search = new Search();
         String result = search.solution(facelets, 21, 500, 0, 0);
         System.out.print(result);
+        System.exit(0);
     }
 
     public Search() {
