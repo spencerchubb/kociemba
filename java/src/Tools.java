@@ -60,13 +60,14 @@ public class Tools {
         }
     }
 
-    protected Tools() {}
+    protected Tools() {
+    }
 
     /**
      * initializing from cached tables(move table, pruning table, etc.)
      *
      * @param in
-     *     Where to read tables.
+     *           Where to read tables.
      *
      * @see cs.min2phase.Tools#saveTo(java.io.DataOutput)
      */
@@ -100,20 +101,18 @@ public class Tools {
         read(CoordCube.CCombPConj, in);
         read(CoordCube.MCPermPrun, in);
         read(CoordCube.EPermCCombPPrun, in);
-
-        if (Search.USE_TWIST_FLIP_PRUN) {
-            read(CubieCube.FlipS2RF, in);
-            read(CoordCube.TwistFlipPrun, in);
-        }
+        read(CubieCube.FlipS2RF, in);
+        read(CoordCube.TwistFlipPrun, in);
         Search.inited = true;
         CoordCube.initLevel = 2;
     }
 
     /**
-     * cache tables (move tables, pruning table, etc.), and read it while initializing.
+     * cache tables (move tables, pruning table, etc.), and read it while
+     * initializing.
      *
      * @param out
-     *     Where to cache tables.
+     *            Where to cache tables.
      *
      * @see cs.min2phase.Tools#initFrom(java.io.DataInput)
      */
@@ -121,39 +120,39 @@ public class Tools {
         Search.init();
         while (CoordCube.initLevel != 2) {
             CoordCube.init(true);
-        }                                         //   w/o TFP    w/ TFP
-        write(CubieCube.FlipS2R, out);            //       672
-        write(CubieCube.TwistS2R, out);           //       648
-        write(CubieCube.EPermS2R, out);           //     5,536
-        write(CubieCube.FlipR2S, out);             //     3,072
-        write(CubieCube.TwistR2S, out);            //     3,281
-        write(CubieCube.EPermR2S, out);            //    20,160
-        out.write(CubieCube.Perm2CombP);          //     2,768
+        } // w/o TFP w/ TFP
+        write(CubieCube.FlipS2R, out); // 672
+        write(CubieCube.TwistS2R, out); // 648
+        write(CubieCube.EPermS2R, out); // 5,536
+        write(CubieCube.FlipR2S, out); // 3,072
+        write(CubieCube.TwistR2S, out); // 3,281
+        write(CubieCube.EPermR2S, out); // 20,160
+        out.write(CubieCube.Perm2CombP); // 2,768
         out.write(CubieCube.MPermInv);
-        write(CubieCube.PermInvEdgeSym, out);     //     5,536
+        write(CubieCube.PermInvEdgeSym, out); // 5,536
 
-        write(CoordCube.UDSliceMove, out);        //    17,820
-        write(CoordCube.TwistMove, out);          //    11,664
-        write(CoordCube.FlipMove, out);           //    12,096
-        write(CoordCube.UDSliceConj, out);        //     7,920
-        write(CoordCube.UDSliceTwistPrun, out);   //    80,192
-        write(CoordCube.UDSliceFlipPrun, out);    //    83,164
-        write(CoordCube.CPermMove, out);          //    55,360
-        write(CoordCube.EPermMove, out);          //    55,360
-        write(CoordCube.MPermMove, out);          //       480
-        write(CoordCube.MPermConj, out);          //       768
-        write(CoordCube.CCombPConj, out);         //     2,240 +   2,240
-        write(CoordCube.MCPermPrun, out);         //    33,220
-        write(CoordCube.EPermCCombPPrun, out);    //    96,884 +  96,880
+        write(CoordCube.UDSliceMove, out); // 17,820
+        write(CoordCube.TwistMove, out); // 11,664
+        write(CoordCube.FlipMove, out); // 12,096
+        write(CoordCube.UDSliceConj, out); // 7,920
+        write(CoordCube.UDSliceTwistPrun, out); // 80,192
+        write(CoordCube.UDSliceFlipPrun, out); // 83,164
+        write(CoordCube.CPermMove, out); // 55,360
+        write(CoordCube.EPermMove, out); // 55,360
+        write(CoordCube.MPermMove, out); // 480
+        write(CoordCube.MPermConj, out); // 768
+        write(CoordCube.CCombPConj, out); // 2,240 + 2,240
+        write(CoordCube.MCPermPrun, out); // 33,220
+        write(CoordCube.EPermCCombPPrun, out); // 96,884 + 96,880
 
-        if (Search.USE_TWIST_FLIP_PRUN) {
-            write(CubieCube.FlipS2RF, out);       //           +   5,376
-            write(CoordCube.TwistFlipPrun, out);  //           + 331,780
-        }                                         // = 498,841 + 436,276 = 935,117
+        write(CubieCube.FlipS2RF, out); // + 5,376
+        write(CoordCube.TwistFlipPrun, out); // + 331,780
+                                             // = 498,841 + 436,276 = 935,117
     }
 
     /**
      * Set Random Source.
+     * 
      * @param gen new random source.
      */
     public static void setRandomSource(Random gen) {
@@ -163,12 +162,15 @@ public class Tools {
     /**
      * Generates a random cube.<br>
      *
-     * The random source can be set by {@link cs.min2phase.Tools#setRandomSource(java.util.Random)}
+     * The random source can be set by
+     * {@link cs.min2phase.Tools#setRandomSource(java.util.Random)}
      *
-     * @return A random cube in the string representation. Each cube of the cube space has almost (depends on randomSource) the same probability.
+     * @return A random cube in the string representation. Each cube of the cube
+     *         space has almost (depends on randomSource) the same probability.
      *
      * @see cs.min2phase.Tools#setRandomSource(java.util.Random)
-     * @see cs.min2phase.Search#solution(java.lang.String facelets, int maxDepth, long timeOut, long timeMin, int verbose)
+     * @see cs.min2phase.Search#solution(java.lang.String facelets, int maxDepth,
+     *      long timeOut, long timeMin, int verbose)
      */
     public static String randomCube() {
         return randomState(STATE_RANDOM, STATE_RANDOM, STATE_RANDOM, STATE_RANDOM, gen);
@@ -216,7 +218,7 @@ public class Tools {
         } else if (arr == STATE_RANDOM) {
             return parity == -1 ? gen.nextInt(2) : parity;
         }
-        byte[] val = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};
+        byte[] val = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 };
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] != -1) {
                 val[arr[i]] = -1;
@@ -270,7 +272,7 @@ public class Tools {
         int cntUE = ep == STATE_RANDOM ? 12 : countUnknown(ep);
         int cntUC = cp == STATE_RANDOM ? 8 : countUnknown(cp);
         int cpVal, epVal;
-        if (cntUE < 2) {    //ep != STATE_RANDOM
+        if (cntUE < 2) { // ep != STATE_RANDOM
             if (ep == STATE_SOLVED) {
                 epVal = parity = 0;
             } else {
@@ -287,7 +289,7 @@ public class Tools {
                 resolvePerm(cp, cntUC, parity);
                 cpVal = getNPerm(cp, 8);
             }
-        } else {    //ep != STATE_SOLVED
+        } else { // ep != STATE_SOLVED
             if (cp == STATE_SOLVED) {
                 cpVal = parity = 0;
             } else if (cp == STATE_RANDOM) {
@@ -307,82 +309,80 @@ public class Tools {
             }
         }
         return Util.toFaceCube(
-                   new CubieCube(
-                       cpVal,
-                       co == STATE_RANDOM ? gen.nextInt(2187) : (co == STATE_SOLVED ? 0 : resolveOri(co, 3)),
-                       epVal,
-                       eo == STATE_RANDOM ? gen.nextInt(2048) : (eo == STATE_SOLVED ? 0 : resolveOri(eo, 2))));
+                new CubieCube(
+                        cpVal,
+                        co == STATE_RANDOM ? gen.nextInt(2187) : (co == STATE_SOLVED ? 0 : resolveOri(co, 3)),
+                        epVal,
+                        eo == STATE_RANDOM ? gen.nextInt(2048) : (eo == STATE_SOLVED ? 0 : resolveOri(eo, 2))));
     }
-
 
     public static String randomLastLayer() {
         return randomState(
-                   new byte[] { -1, -1, -1, -1, 4, 5, 6, 7},
-                   new byte[] { -1, -1, -1, -1, 0, 0, 0, 0},
-                   new byte[] { -1, -1, -1, -1, 4, 5, 6, 7, 8, 9, 10, 11},
-                   new byte[] { -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0}, gen);
+                new byte[] { -1, -1, -1, -1, 4, 5, 6, 7 },
+                new byte[] { -1, -1, -1, -1, 0, 0, 0, 0 },
+                new byte[] { -1, -1, -1, -1, 4, 5, 6, 7, 8, 9, 10, 11 },
+                new byte[] { -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0 }, gen);
     }
 
     public static String randomLastSlot() {
         return randomState(
-                   new byte[] { -1, -1, -1, -1, -1, 5, 6, 7},
-                   new byte[] { -1, -1, -1, -1, -1, 0, 0, 0},
-                   new byte[] { -1, -1, -1, -1, 4, 5, 6, 7, -1, 9, 10, 11},
-                   new byte[] { -1, -1, -1, -1, 0, 0, 0, 0, -1, 0, 0, 0}, gen);
+                new byte[] { -1, -1, -1, -1, -1, 5, 6, 7 },
+                new byte[] { -1, -1, -1, -1, -1, 0, 0, 0 },
+                new byte[] { -1, -1, -1, -1, 4, 5, 6, 7, -1, 9, 10, 11 },
+                new byte[] { -1, -1, -1, -1, 0, 0, 0, 0, -1, 0, 0, 0 }, gen);
     }
 
     public static String randomZBLastLayer() {
         return randomState(
-                   new byte[] { -1, -1, -1, -1, 4, 5, 6, 7},
-                   new byte[] { -1, -1, -1, -1, 0, 0, 0, 0},
-                   new byte[] { -1, -1, -1, -1, 4, 5, 6, 7, 8, 9, 10, 11},
-                   STATE_SOLVED, gen);
+                new byte[] { -1, -1, -1, -1, 4, 5, 6, 7 },
+                new byte[] { -1, -1, -1, -1, 0, 0, 0, 0 },
+                new byte[] { -1, -1, -1, -1, 4, 5, 6, 7, 8, 9, 10, 11 },
+                STATE_SOLVED, gen);
     }
 
     public static String randomCornerOfLastLayer() {
         return randomState(
-                   new byte[] { -1, -1, -1, -1, 4, 5, 6, 7},
-                   new byte[] { -1, -1, -1, -1, 0, 0, 0, 0},
-                   STATE_SOLVED,
-                   STATE_SOLVED, gen);
+                new byte[] { -1, -1, -1, -1, 4, 5, 6, 7 },
+                new byte[] { -1, -1, -1, -1, 0, 0, 0, 0 },
+                STATE_SOLVED,
+                STATE_SOLVED, gen);
     }
 
     public static String randomEdgeOfLastLayer() {
         return randomState(
-                   STATE_SOLVED,
-                   STATE_SOLVED,
-                   new byte[] { -1, -1, -1, -1, 4, 5, 6, 7, 8, 9, 10, 11},
-                   new byte[] { -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0}, gen);
+                STATE_SOLVED,
+                STATE_SOLVED,
+                new byte[] { -1, -1, -1, -1, 4, 5, 6, 7, 8, 9, 10, 11 },
+                new byte[] { -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0 }, gen);
     }
 
     public static String randomCrossSolved() {
         return randomState(
-                   STATE_RANDOM,
-                   STATE_RANDOM,
-                   new byte[] { -1, -1, -1, -1, 4, 5, 6, 7, -1, -1, -1, -1},
-                   new byte[] { -1, -1, -1, -1, 0, 0, 0, 0, -1, -1, -1, -1}, gen);
+                STATE_RANDOM,
+                STATE_RANDOM,
+                new byte[] { -1, -1, -1, -1, 4, 5, 6, 7, -1, -1, -1, -1 },
+                new byte[] { -1, -1, -1, -1, 0, 0, 0, 0, -1, -1, -1, -1 }, gen);
     }
 
     public static String randomEdgeSolved() {
         return randomState(
-                   STATE_RANDOM,
-                   STATE_RANDOM,
-                   STATE_SOLVED,
-                   STATE_SOLVED, gen);
+                STATE_RANDOM,
+                STATE_RANDOM,
+                STATE_SOLVED,
+                STATE_SOLVED, gen);
     }
 
     public static String randomCornerSolved() {
         return randomState(
-                   STATE_SOLVED,
-                   STATE_SOLVED,
-                   STATE_RANDOM,
-                   STATE_RANDOM, gen);
+                STATE_SOLVED,
+                STATE_SOLVED,
+                STATE_RANDOM,
+                STATE_RANDOM, gen);
     }
 
     public static String superFlip() {
         return Util.toFaceCube(new CubieCube(0, 0, 0, 2047));
     }
-
 
     public static String fromScramble(int[] scramble) {
         CubieCube c1 = new CubieCube();
@@ -391,7 +391,9 @@ public class Tools {
         for (int i = 0; i < scramble.length; i++) {
             CubieCube.CornMult(c1, CubieCube.moveCube[scramble[i]], c2);
             CubieCube.EdgeMult(c1, CubieCube.moveCube[scramble[i]], c2);
-            tmp = c1; c1 = c2; c2 = tmp;
+            tmp = c1;
+            c1 = c2;
+            c2 = tmp;
         }
         return Util.toFaceCube(c1);
     }
@@ -399,8 +401,10 @@ public class Tools {
     /**
      * Convert a scramble string to its cube definition string.
      *
-     * @param s  scramble string. Only outer moves (U, R, F, D, L, B, U2, R2, ...) are recognized.
-     * @return cube definition string, which represent the state generated by the scramble<br>
+     * @param s scramble string. Only outer moves (U, R, F, D, L, B, U2, R2, ...)
+     *          are recognized.
+     * @return cube definition string, which represent the state generated by the
+     *         scramble<br>
      */
     public static String fromScramble(String s) {
         int[] arr = new int[s.length()];
@@ -408,25 +412,43 @@ public class Tools {
         int axis = -1;
         for (int i = 0, length = s.length(); i < length; i++) {
             switch (s.charAt(i)) {
-            case 'U':   axis = 0;   break;
-            case 'R':   axis = 3;   break;
-            case 'F':   axis = 6;   break;
-            case 'D':   axis = 9;   break;
-            case 'L':   axis = 12;  break;
-            case 'B':   axis = 15;  break;
-            case ' ':
-                if (axis != -1) {
-                    arr[j++] = axis;
-                }
-                axis = -1;
-                break;
-            case '2':   axis++; break;
-            case '\'':  axis += 2; break;
-            default:    continue;
+                case 'U':
+                    axis = 0;
+                    break;
+                case 'R':
+                    axis = 3;
+                    break;
+                case 'F':
+                    axis = 6;
+                    break;
+                case 'D':
+                    axis = 9;
+                    break;
+                case 'L':
+                    axis = 12;
+                    break;
+                case 'B':
+                    axis = 15;
+                    break;
+                case ' ':
+                    if (axis != -1) {
+                        arr[j++] = axis;
+                    }
+                    axis = -1;
+                    break;
+                case '2':
+                    axis++;
+                    break;
+                case '\'':
+                    axis += 2;
+                    break;
+                default:
+                    continue;
             }
 
         }
-        if (axis != -1) arr[j++] = axis;
+        if (axis != -1)
+            arr[j++] = axis;
         int[] ret = new int[j];
         while (--j >= 0) {
             ret[j] = arr[j];
@@ -437,7 +459,8 @@ public class Tools {
     /**
      * Check whether the cube definition string s represents a solvable cube.
      *
-     * @param facelets is the cube definition string , see {@link cs.min2phase.Search#solution(java.lang.String facelets, int maxDepth, long timeOut, long timeMin, int verbose)}
+     * @param facelets is the cube definition string , see
+     *                 {@link cs.min2phase.Search#solution(java.lang.String facelets, int maxDepth, long timeOut, long timeMin, int verbose)}
      * @return 0: Cube is solvable<br>
      *         -1: There is not exactly one facelet of each colour<br>
      *         -2: Not all 12 edges exist exactly once<br>

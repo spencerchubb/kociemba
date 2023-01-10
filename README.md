@@ -4,7 +4,7 @@ Rubik's Cube solver and scrambler for Go.
 The solver is based on Herbert Kociemba's two-phase algorithm.
 Further improvements were made by Shuang Chen to make the search much faster and require less memory.
 
-Shuang Chen wrote the Java code, and I made the Go wrapper so the solver can be used in Go programs.
+The code is basically a Go wrapper around Java.
 
 # Usage
 
@@ -110,7 +110,7 @@ public class demo {
 
 # License GPLv3
 
-    Copyright (C) 2019  Shuang Chen
+    Copyright (C) 2019 Shuang Chen
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

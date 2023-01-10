@@ -24,10 +24,10 @@ func execCommand(command string, args ...string) (string, error) {
 	return string(bytes), nil
 }
 
-func Solve(facelets string) string {
-	result, err := execCommand("java", "-cp", "../java/dist", "kociemba.Search", facelets)
+func Solve(facelets string) (string, error) {
+	result, err := execCommand("java", "-cp", "./java/dist", "kociemba.Search", facelets)
 	if err != nil {
-		panic(err)
+		return "", err
 	}
-	return result
+	return result, nil
 }

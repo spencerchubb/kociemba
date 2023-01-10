@@ -1,5 +1,5 @@
 /**
-    Copyright (C) 2015  Shuang Chen
+    Copyright (C) 2015 Shuang Chen
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -25,15 +25,13 @@ package kociemba;
  */
 public class Search {
 
-    public static final boolean USE_TWIST_FLIP_PRUN = true;
-
     //Options for research purpose.
     static final int MAX_PRE_MOVES = 20;
     static final boolean TRY_INVERSE = true;
     static final boolean TRY_THREE_AXES = true;
 
-    static final boolean USE_COMBP_PRUN = USE_TWIST_FLIP_PRUN;
-    static final boolean USE_CONJ_PRUN = USE_TWIST_FLIP_PRUN;
+    static final boolean USE_COMBP_PRUN = true;
+    static final boolean USE_CONJ_PRUN = true;
     protected static int MIN_P1LENGTH_PRE = 7;
     protected static int MAX_DEPTH2 = 12;
 
@@ -94,7 +92,7 @@ public class Search {
 
     public static void main(String[] args) {
         if (args.length != 1) {
-            System.out.println("error: expected 1 argument, got " + args.length);
+            System.out.print("error: expected 1 argument, got " + args.length);
             return;
         }
 
@@ -102,7 +100,7 @@ public class Search {
 
         Search search = new Search();
         String result = search.solution(facelets, 21, 500, 0, 0);
-        System.out.println(result);
+        System.out.print(result);
     }
 
     public Search() {

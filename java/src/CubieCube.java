@@ -51,7 +51,7 @@ class CubieCube {
     static char[] FlipR2S = new char[CoordCube.N_FLIP];
     static char[] TwistR2S = new char[CoordCube.N_TWIST];
     static char[] EPermR2S = new char[CoordCube.N_PERM];
-    static char[] FlipS2RF = Search.USE_TWIST_FLIP_PRUN ? new char[CoordCube.N_FLIP_SYM * 8] : null;
+    static char[] FlipS2RF = new char[CoordCube.N_FLIP_SYM * 8];
 
     /**
      *
@@ -500,7 +500,7 @@ class CubieCube {
                 case 2: idx = d.getEPerm();
                     break;
                 }
-                if (coord == 0 && Search.USE_TWIST_FLIP_PRUN) {
+                if (coord == 0) {
                     FlipS2RF[count << 3 | s >> 1] = (char) idx;
                 }
                 if (idx == i) {

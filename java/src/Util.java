@@ -96,8 +96,8 @@ class Util {
 
     static int[][] Cnk = new int[13][13];
     static String[] move2str = {
-        "U ", "U2", "U'", "R ", "R2", "R'", "F ", "F2", "F'",
-        "D ", "D2", "D'", "L ", "L2", "L'", "B ", "B2", "B'"
+        "U", "U2", "U'", "R", "R2", "R'", "F", "F2", "F'",
+        "D", "D2", "D'", "L", "L2", "L'", "B", "B2", "B'"
     };
     static int[] ud2std = {Ux1, Ux2, Ux3, Rx2, Fx2, Dx1, Dx2, Dx3, Lx2, Bx2, Rx1, Rx3, Fx1, Fx3, Lx1, Lx3, Bx1, Bx3};
     static int[] std2ud = new int[18];
@@ -161,8 +161,10 @@ class Util {
                 }
             } else {
                 for (int s = length - 1; s >= 0; s--) {
-                    sb.append(move2str[CubieCube.urfMove[urf][moves[s]]]).append(' ');
-                    if ((verbose & Search.USE_SEPARATOR) != 0 && s == depth1) {
+                    sb.append(move2str[CubieCube.urfMove[urf][moves[s]]]);
+                    if (s != 0) {
+                        sb.append(' ');
+                    } else if ((verbose & Search.USE_SEPARATOR) != 0 && s == depth1) {
                         sb.append(".  ");
                     }
                 }
