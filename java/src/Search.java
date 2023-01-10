@@ -93,6 +93,7 @@ public class Search {
     public static void main(String[] args) {
         if (args.length != 1) {
             System.out.print("error: expected 1 argument, got " + args.length);
+            System.exit(0);
             return;
         }
 
