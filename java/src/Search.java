@@ -94,7 +94,6 @@ public class Search {
     public static void main(String[] args) {
         if (args.length != 1) {
             System.out.print("error: expected 1 argument, got " + args.length);
-            System.exit(0);
             return;
         }
 
@@ -103,7 +102,6 @@ public class Search {
         Search search = new Search();
         String result = search.solution(facelets, 21, 500, 0, 0);
         System.out.print(result);
-        System.exit(0);
     }
 
     public Search() {
@@ -412,11 +410,11 @@ public class Search {
                 int m = Util.std2ud[lastMove / 3 * 3 + 1];
                 move[depth1 - 1] = Util.ud2std[m] * 2 - move[depth1 - 1];
 
-                p2mid = CoordCube.MPermMove[p2mid][m];
-                p2corn = CoordCube.CPermMove[p2corn][CubieCube.SymMoveUD[p2csym][m]];
+                p2mid = Tables.MPermMove[p2mid][m];
+                p2corn = Tables.CPermMove[p2corn][CubieCube.SymMoveUD[p2csym][m]];
                 p2csym = CubieCube.SymMult[p2corn & 0xf][p2csym];
                 p2corn >>= 4;
-                p2edge = CoordCube.EPermMove[p2edge][CubieCube.SymMoveUD[p2esym][m]];
+                p2edge = Tables.EPermMove[p2edge][CubieCube.SymMoveUD[p2esym][m]];
                 p2esym = CubieCube.SymMult[p2edge & 0xf][p2esym];
                 p2edge >>= 4;
                 corni = CubieCube.getPermSymInv(p2corn, p2csym, true);
@@ -425,13 +423,13 @@ public class Search {
                 int m = Util.std2ud[lastPre / 3 * 3 + 1];
                 preMoves[preMoveLen - 1] = Util.ud2std[m] * 2 - preMoves[preMoveLen - 1];
 
-                p2mid = CubieCube.MPermInv[CoordCube.MPermMove[CubieCube.MPermInv[p2mid]][m]];
-                p2corn = CoordCube.CPermMove[corni >> 4][CubieCube.SymMoveUD[corni & 0xf][m]];
+                p2mid = CubieCube.MPermInv[Tables.MPermMove[CubieCube.MPermInv[p2mid]][m]];
+                p2corn = Tables.CPermMove[corni >> 4][CubieCube.SymMoveUD[corni & 0xf][m]];
                 corni = p2corn & ~0xf | CubieCube.SymMult[p2corn & 0xf][corni & 0xf];
                 p2corn = CubieCube.getPermSymInv(corni >> 4, corni & 0xf, true);
                 p2csym = p2corn & 0xf;
                 p2corn >>= 4;
-                p2edge = CoordCube.EPermMove[edgei >> 4][CubieCube.SymMoveUD[edgei & 0xf][m]];
+                p2edge = Tables.EPermMove[edgei >> 4][CubieCube.SymMoveUD[edgei & 0xf][m]];
                 edgei = p2edge & ~0xf | CubieCube.SymMult[p2edge & 0xf][edgei & 0xf];
                 p2edge = CubieCube.getPermSymInv(edgei >> 4, edgei & 0xf, false);
                 p2esym = p2edge & 0xf;
@@ -449,15 +447,15 @@ public class Search {
 
     protected int initPhase2(int p2corn, int p2csym, int p2edge, int p2esym, int p2mid, int edgei, int corni) {
         int prun = Math.max(
-                CoordCube.getPruning(CoordCube.EPermCCombPPrun,
-                        (edgei >> 4) * CoordCube.N_COMB + CoordCube.CCombPConj[CubieCube.Perm2CombP[corni >> 4]
+                Tables.getPruning(Tables.EPermCCombPPrun,
+                        (edgei >> 4) * Tables.N_COMB + Tables.CCombPConj[CubieCube.Perm2CombP[corni >> 4]
                                 & 0xff][CubieCube.SymMultInv[edgei & 0xf][corni & 0xf]]),
                 Math.max(
-                        CoordCube.getPruning(CoordCube.EPermCCombPPrun,
-                                p2edge * CoordCube.N_COMB + CoordCube.CCombPConj[CubieCube.Perm2CombP[p2corn]
+                        Tables.getPruning(Tables.EPermCCombPPrun,
+                                p2edge * Tables.N_COMB + Tables.CCombPConj[CubieCube.Perm2CombP[p2corn]
                                         & 0xff][CubieCube.SymMultInv[p2esym][p2csym]]),
-                        CoordCube.getPruning(CoordCube.MCPermPrun,
-                                p2corn * CoordCube.N_MPERM + CoordCube.MPermConj[p2mid][p2csym])));
+                        Tables.getPruning(Tables.MCPermPrun,
+                                p2corn * Tables.N_MPERM + Tables.MPermConj[p2mid][p2csym])));
 
         if (prun > maxDep2) {
             return prun - maxDep2;
@@ -663,18 +661,18 @@ public class Search {
                 m += 0x42 >> m & 3;
                 continue;
             }
-            int midx = CoordCube.MPermMove[mid][m];
-            int cornx = CoordCube.CPermMove[corn][CubieCube.SymMoveUD[csym][m]];
+            int midx = Tables.MPermMove[mid][m];
+            int cornx = Tables.CPermMove[corn][CubieCube.SymMoveUD[csym][m]];
             int csymx = CubieCube.SymMult[cornx & 0xf][csym];
             cornx >>= 4;
-            int edgex = CoordCube.EPermMove[edge][CubieCube.SymMoveUD[esym][m]];
+            int edgex = Tables.EPermMove[edge][CubieCube.SymMoveUD[esym][m]];
             int esymx = CubieCube.SymMult[edgex & 0xf][esym];
             edgex >>= 4;
             int edgei = CubieCube.getPermSymInv(edgex, esymx, false);
             int corni = CubieCube.getPermSymInv(cornx, csymx, true);
 
-            int prun = CoordCube.getPruning(CoordCube.EPermCCombPPrun,
-                    (edgei >> 4) * CoordCube.N_COMB + CoordCube.CCombPConj[CubieCube.Perm2CombP[corni >> 4]
+            int prun = Tables.getPruning(Tables.EPermCCombPPrun,
+                    (edgei >> 4) * Tables.N_COMB + Tables.CCombPConj[CubieCube.Perm2CombP[corni >> 4]
                             & 0xff][CubieCube.SymMultInv[edgei & 0xf][corni & 0xf]]);
             if (prun > maxl + 1) {
                 return maxl - prun + 1;
@@ -683,10 +681,10 @@ public class Search {
                 continue;
             }
             prun = Math.max(
-                    CoordCube.getPruning(CoordCube.MCPermPrun,
-                            cornx * CoordCube.N_MPERM + CoordCube.MPermConj[midx][csymx]),
-                    CoordCube.getPruning(CoordCube.EPermCCombPPrun,
-                            edgex * CoordCube.N_COMB + CoordCube.CCombPConj[CubieCube.Perm2CombP[cornx]
+                    Tables.getPruning(Tables.MCPermPrun,
+                            cornx * Tables.N_MPERM + Tables.MPermConj[midx][csymx]),
+                    Tables.getPruning(Tables.EPermCCombPPrun,
+                            edgex * Tables.N_COMB + Tables.CCombPConj[CubieCube.Perm2CombP[cornx]
                                     & 0xff][CubieCube.SymMultInv[esymx][csymx]]));
             if (prun >= maxl) {
                 m += 0x42 >> m & 3 & (maxl - prun);

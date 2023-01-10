@@ -72,7 +72,7 @@ public class Tools {
      * @see cs.min2phase.Tools#saveTo(java.io.DataOutput)
      */
     public static void initFrom(DataInput in) throws IOException {
-        if (Search.inited && CoordCube.initLevel == 2) {
+        if (Search.inited && Tables.initLevel == 2) {
             return;
         }
         CubieCube.initMove();
@@ -88,23 +88,23 @@ public class Tools {
         in.readFully(CubieCube.MPermInv);
         read(CubieCube.PermInvEdgeSym, in);
 
-        read(CoordCube.UDSliceMove, in);
-        read(CoordCube.TwistMove, in);
-        read(CoordCube.FlipMove, in);
-        read(CoordCube.UDSliceConj, in);
-        read(CoordCube.UDSliceTwistPrun, in);
-        read(CoordCube.UDSliceFlipPrun, in);
-        read(CoordCube.CPermMove, in);
-        read(CoordCube.EPermMove, in);
-        read(CoordCube.MPermMove, in);
-        read(CoordCube.MPermConj, in);
-        read(CoordCube.CCombPConj, in);
-        read(CoordCube.MCPermPrun, in);
-        read(CoordCube.EPermCCombPPrun, in);
+        read(Tables.UDSliceMove, in);
+        read(Tables.TwistMove, in);
+        read(Tables.FlipMove, in);
+        read(Tables.UDSliceConj, in);
+        read(Tables.UDSliceTwistPrun, in);
+        read(Tables.UDSliceFlipPrun, in);
+        read(Tables.CPermMove, in);
+        read(Tables.EPermMove, in);
+        read(Tables.MPermMove, in);
+        read(Tables.MPermConj, in);
+        read(Tables.CCombPConj, in);
+        read(Tables.MCPermPrun, in);
+        read(Tables.EPermCCombPPrun, in);
         read(CubieCube.FlipS2RF, in);
-        read(CoordCube.TwistFlipPrun, in);
+        read(Tables.TwistFlipPrun, in);
         Search.inited = true;
-        CoordCube.initLevel = 2;
+        Tables.initLevel = 2;
     }
 
     /**
@@ -118,7 +118,7 @@ public class Tools {
      */
     public static void saveTo(DataOutput out) throws IOException {
         Search.init();
-        while (CoordCube.initLevel != 2) {
+        while (Tables.initLevel != 2) {
             CoordCube.init(true);
         } // w/o TFP w/ TFP
         write(CubieCube.FlipS2R, out); // 672
@@ -131,22 +131,22 @@ public class Tools {
         out.write(CubieCube.MPermInv);
         write(CubieCube.PermInvEdgeSym, out); // 5,536
 
-        write(CoordCube.UDSliceMove, out); // 17,820
-        write(CoordCube.TwistMove, out); // 11,664
-        write(CoordCube.FlipMove, out); // 12,096
-        write(CoordCube.UDSliceConj, out); // 7,920
-        write(CoordCube.UDSliceTwistPrun, out); // 80,192
-        write(CoordCube.UDSliceFlipPrun, out); // 83,164
-        write(CoordCube.CPermMove, out); // 55,360
-        write(CoordCube.EPermMove, out); // 55,360
-        write(CoordCube.MPermMove, out); // 480
-        write(CoordCube.MPermConj, out); // 768
-        write(CoordCube.CCombPConj, out); // 2,240 + 2,240
-        write(CoordCube.MCPermPrun, out); // 33,220
-        write(CoordCube.EPermCCombPPrun, out); // 96,884 + 96,880
+        write(Tables.UDSliceMove, out); // 17,820
+        write(Tables.TwistMove, out); // 11,664
+        write(Tables.FlipMove, out); // 12,096
+        write(Tables.UDSliceConj, out); // 7,920
+        write(Tables.UDSliceTwistPrun, out); // 80,192
+        write(Tables.UDSliceFlipPrun, out); // 83,164
+        write(Tables.CPermMove, out); // 55,360
+        write(Tables.EPermMove, out); // 55,360
+        write(Tables.MPermMove, out); // 480
+        write(Tables.MPermConj, out); // 768
+        write(Tables.CCombPConj, out); // 2,240 + 2,240
+        write(Tables.MCPermPrun, out); // 33,220
+        write(Tables.EPermCCombPPrun, out); // 96,884 + 96,880
 
         write(CubieCube.FlipS2RF, out); // + 5,376
-        write(CoordCube.TwistFlipPrun, out); // + 331,780
+        write(Tables.TwistFlipPrun, out); // + 331,780
                                              // = 498,841 + 436,276 = 935,117
     }
 

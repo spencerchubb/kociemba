@@ -3,7 +3,8 @@ src/CoordCube.java \
 src/CubieCube.java \
 src/Search.java \
 src/Util.java \
-src/Tools.java
+src/Tools.java \
+src/Tables.java
 
 TESTSRC = test/test.java
 
