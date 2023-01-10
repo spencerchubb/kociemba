@@ -21,28 +21,28 @@ public class Tables {
     static int initLevel = 0;
 
     // phase1
-    static char[][] UDSliceMove = new char[N_SLICE][N_MOVES];
-    static char[][] TwistMove = new char[N_TWIST_SYM][N_MOVES];
-    static char[][] FlipMove = new char[N_FLIP_SYM][N_MOVES];
-    static char[][] UDSliceConj = new char[N_SLICE][8];
-    static int[] UDSliceTwistPrun = new int[N_SLICE * N_TWIST_SYM / 8 + 1];
-    static int[] UDSliceFlipPrun = new int[N_SLICE * N_FLIP_SYM / 8 + 1];
-    static int[] TwistFlipPrun = new int[N_FLIP * N_TWIST_SYM / 8 + 1];
+    public static int[][] UDSliceMove = new int[N_SLICE][N_MOVES];
+    public static int[][] TwistMove = new int[N_TWIST_SYM][N_MOVES];
+    public static int[][] FlipMove = new int[N_FLIP_SYM][N_MOVES];
+    public static int[][] UDSliceConj = new int[N_SLICE][8];
+    public static int[] UDSliceTwistPrun = new int[N_SLICE * N_TWIST_SYM / 8 + 1];
+    public static int[] UDSliceFlipPrun = new int[N_SLICE * N_FLIP_SYM / 8 + 1];
+    public static int[] TwistFlipPrun = new int[N_FLIP * N_TWIST_SYM / 8 + 1];
 
     // phase2
-    static char[][] CPermMove = new char[N_PERM_SYM][N_MOVES2];
-    static char[][] EPermMove = new char[N_PERM_SYM][N_MOVES2];
-    static char[][] MPermMove = new char[N_MPERM][N_MOVES2];
-    static char[][] MPermConj = new char[N_MPERM][16];
-    static char[][] CCombPMove = new char[N_COMB][N_MOVES2];
-    static char[][] CCombPConj = new char[N_COMB][16];
+    static int[][] CPermMove = new int[N_PERM_SYM][N_MOVES2];
+    static int[][] EPermMove = new int[N_PERM_SYM][N_MOVES2];
+    static int[][] MPermMove = new int[N_MPERM][N_MOVES2];
+    static int[][] MPermConj = new int[N_MPERM][16];
+    static int[][] CCombPMove = new int[N_COMB][N_MOVES2];
+    static int[][] CCombPConj = new int[N_COMB][16];
     static int[] MCPermPrun = new int[N_MPERM * N_PERM_SYM / 8 + 1];
     static int[] EPermCCombPPrun = new int[N_COMB * N_PERM_SYM / 8 + 1];
 
     public Tables() {
     }
 
-    static void init(boolean fullInit) {
+    public static void init(boolean fullInit) {
         if (initLevel == 2 || initLevel == 1 && !fullInit) {
             return;
         }
@@ -82,11 +82,11 @@ public class Tables {
             c.setUDSlice(i);
             for (int j = 0; j < N_MOVES; j += 3) {
                 CubieCube.EdgeMult(c, CubieCube.moveCube[j], d);
-                UDSliceMove[i][j] = (char) d.getUDSlice();
+                UDSliceMove[i][j] = d.getUDSlice();
             }
             for (int j = 0; j < 16; j += 2) {
                 CubieCube.EdgeConjugate(c, CubieCube.SymMultInv[0][j], d);
-                UDSliceConj[i][j >> 1] = (char) d.getUDSlice();
+                UDSliceConj[i][j >> 1] = d.getUDSlice();
             }
         }
         for (int i = 0; i < N_SLICE; i++) {
@@ -94,7 +94,7 @@ public class Tables {
                 int udslice = UDSliceMove[i][j];
                 for (int k = 1; k < 3; k++) {
                     udslice = UDSliceMove[udslice][j];
-                    UDSliceMove[i][j + k] = (char) udslice;
+                    UDSliceMove[i][j + k] = udslice;
                 }
             }
         }
@@ -107,7 +107,7 @@ public class Tables {
             c.setFlip(CubieCube.FlipS2R[i]);
             for (int j = 0; j < N_MOVES; j++) {
                 CubieCube.EdgeMult(c, CubieCube.moveCube[j], d);
-                FlipMove[i][j] = (char) d.getFlipSym();
+                FlipMove[i][j] = d.getFlipSym();
             }
         }
     }
@@ -119,7 +119,7 @@ public class Tables {
             c.setTwist(CubieCube.TwistS2R[i]);
             for (int j = 0; j < N_MOVES; j++) {
                 CubieCube.CornMult(c, CubieCube.moveCube[j], d);
-                TwistMove[i][j] = (char) d.getTwistSym();
+                TwistMove[i][j] = d.getTwistSym();
             }
         }
     }
@@ -131,7 +131,7 @@ public class Tables {
             c.setCPerm(CubieCube.EPermS2R[i]);
             for (int j = 0; j < N_MOVES2; j++) {
                 CubieCube.CornMult(c, CubieCube.moveCube[Util.ud2std[j]], d);
-                CPermMove[i][j] = (char) d.getCPermSym();
+                CPermMove[i][j] = d.getCPermSym();
             }
         }
     }
@@ -143,7 +143,7 @@ public class Tables {
             c.setEPerm(CubieCube.EPermS2R[i]);
             for (int j = 0; j < N_MOVES2; j++) {
                 CubieCube.EdgeMult(c, CubieCube.moveCube[Util.ud2std[j]], d);
-                EPermMove[i][j] = (char) d.getEPermSym();
+                EPermMove[i][j] = d.getEPermSym();
             }
         }
     }
@@ -155,11 +155,11 @@ public class Tables {
             c.setMPerm(i);
             for (int j = 0; j < N_MOVES2; j++) {
                 CubieCube.EdgeMult(c, CubieCube.moveCube[Util.ud2std[j]], d);
-                MPermMove[i][j] = (char) d.getMPerm();
+                MPermMove[i][j] = d.getMPerm();
             }
             for (int j = 0; j < 16; j++) {
                 CubieCube.EdgeConjugate(c, CubieCube.SymMultInv[0][j], d);
-                MPermConj[i][j] = (char) d.getMPerm();
+                MPermConj[i][j] = d.getMPerm();
             }
         }
     }
@@ -171,11 +171,11 @@ public class Tables {
             c.setCComb(i % 70);
             for (int j = 0; j < N_MOVES2; j++) {
                 CubieCube.CornMult(c, CubieCube.moveCube[Util.ud2std[j]], d);
-                CCombPMove[i][j] = (char) (d.getCComb() + 70 * ((P2_PARITY_MOVE >> j & 1) ^ (i / 70)));
+                CCombPMove[i][j] = (d.getCComb() + 70 * ((P2_PARITY_MOVE >> j & 1) ^ (i / 70)));
             }
             for (int j = 0; j < 16; j++) {
                 CubieCube.CornConjugate(c, CubieCube.SymMultInv[0][j], d);
-                CCombPConj[i][j] = (char) (d.getCComb() + 70 * (i / 70));
+                CCombPConj[i][j] = (d.getCComb() + 70 * (i / 70));
             }
         }
     }
@@ -188,8 +188,8 @@ public class Tables {
     // PrunFlag: | MIN_DEPTH | MAX_DEPTH | INV_DEPTH | Padding | P2 | E2C |
     // SYM_SHIFT |
     static void initRawSymPrun(int[] PrunTable,
-            final char[][] RawMove, final char[][] RawConj,
-            final char[][] SymMove, final char[] SymState,
+            final int[][] RawMove, final int[][] RawConj,
+            final int[][] SymMove, final char[] SymState,
             final int PrunFlag, final boolean fullInit) {
 
         final int SYM_SHIFT = PrunFlag & 0xf;

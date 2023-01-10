@@ -6,7 +6,9 @@ src/Util.java \
 src/Tools.java \
 src/Tables.java
 
-TESTSRC = test/test.java
+TESTSRC = \
+test/test.java \
+test/TablesTest.java
 
 ifndef probe
 	probe = 0
@@ -33,6 +35,9 @@ $(DIST): $(SRC)
 
 run: $(DIST)
 	@java -jar $(DIST)
+
+testTables: $(DISTTEST)
+	@java -ea -cp dist:$(DIST) TablesTest
 
 testRnd: $(DISTTEST)
 	@java -ea -cp dist:$(DIST) test 40 $(ntest) $(maxl) 10000000 $(probe) 0
