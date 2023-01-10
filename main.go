@@ -19,9 +19,7 @@ func execCommand(command string, args ...string) (string, error) {
 	if err != nil {
 		return "", fmt.Errorf("execCommand ReadAll: %v: %v", stdout, err)
 	}
-	if err := cmd.Wait(); err != nil {
-		return "", fmt.Errorf("execCommand Wait: %v: %v", stdout, err)
-	}
+	cmd.Wait()
 	return string(bytes), nil
 }
 
