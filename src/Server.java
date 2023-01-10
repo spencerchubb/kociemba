@@ -13,38 +13,35 @@ public class Server {
     public static void main(String[] args)throws Exception {
         int port = 4000;
         HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
-        server.createContext("/test", new MyHandler());
         server.createContext("/solve", new SolveHandler());
-        server.setExecutor(null); // creates a default executor
+        server.setExecutor(null);
         server.start();
         System.out.println("Server started on port " + port);
-    }
-
-    static class MyHandler implements HttpHandler {
-        @Override
-        public void handle(HttpExchange t) throws IOException {
-            String response = "This is the response";
-            t.sendResponseHeaders(200, response.length());
-            OutputStream os = t.getResponseBody();
-            os.write(response.getBytes());
-            os.close();
-        }
     }
 
     static class SolveHandler implements HttpHandler {
         @Override
         public void handle(HttpExchange t) throws IOException {
-            String query = t.getRequestURI().getQuery();
-            String[] params = query.split("&");
-            String[] pair = params[0].split("=");
-            String key = pair[0];
-            String value = pair[1];
+            // /solve/facelets
+            String path = t.getRequestURI().getPath();
 
-            System.out.println(value);
+            // should be length 3
+            // 0: ""
+            // 1: "solve"
+            // 2: facelets
+            String[] pathSegments = path.split("/");
+
+            if (pathSegments.length != 3) {
+                t.sendResponseHeaders(400, 0);
+                OutputStream os = t.getResponseBody();
+                os.close();
+                return;
+            }
+
+            String facelets = pathSegments[2];
 
             Search search = new Search();
-            String solution = search.solution(value, 21, 500, 0, 0);
-            System.out.println(solution);
+            String solution = search.solution(facelets, 21, 500, 0, 0);
 
             t.sendResponseHeaders(200, solution.length());
             OutputStream os = t.getResponseBody();

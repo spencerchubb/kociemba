@@ -100,7 +100,7 @@ public class Test {
                 while (true) {
                     String cube = jobQueue.take();
                     long curTime = System.nanoTime();
-                    String s = search.solution(cube, maxLength, probeMax, probeMin, verbose | search.INVERSE_SOLUTION);
+                    String s = search.solution(cube, maxLength, probeMax, probeMin, verbose | Search.INVERSE_SOLUTION);
                     curTime = System.nanoTime() - curTime;
                     String cube2 = Tools.fromScramble(s);
                     assert(cube.equals(cube2));
@@ -332,9 +332,7 @@ public class Test {
             while (System.nanoTime() - tm < 1e9) {
                 search.solution(Tools.randomCube(), 20, 50, 0, 0);
             }
-            int total = 0;
             int x = 0;
-            //          System.out.print("Average Solving Time: - nanoSecond(s)\r");
             long minT = 1L << 62;
             long maxT = 0L;
             long totalTime = 0;
@@ -346,7 +344,7 @@ public class Test {
             while (x < nSolves) {
                 String cube = Tools.randomCube();
                 long curTime = System.nanoTime();
-                String s = search.solution(cube, maxLength, probeMax, probeMin, verbose | search.INVERSE_SOLUTION);
+                String s = search.solution(cube, maxLength, probeMax, probeMin, verbose | Search.INVERSE_SOLUTION);
                 // if (s.length() > 63) {
                 //     s = search.next(probeMax, 0, verbose);
                 // }

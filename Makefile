@@ -9,7 +9,8 @@ src/Util.java
 
 TESTSRC = \
 test/Test.java \
-test/TablesTest.java
+test/TestServer.java \
+test/TestTables.java
 
 DIST = dist/src
 
@@ -31,8 +32,9 @@ endif
 
 build: $(DIST)
 
-$(DIST): $(SRC)
+$(DIST): $(SRC) $(TESTSRC)
 	@javac -d dist $(SRC) -Xlint:all
+	@javac -d dist $(TESTSRC) -Xlint:all
 
 run: $(DIST)
 	@java -jar $(DIST)
@@ -41,7 +43,10 @@ serve: $(DIST)
 	@java -ea -cp dist:$(DIST) src.Server
 
 testTables: $(DISTTEST)
-	@java -ea -cp dist:$(DIST) test.TablesTest
+	@java -ea -cp dist:$(DISTTEST) test.TestTables
+
+testServer: $(DISTTEST)
+	@java -ea -cp dist:$(DISTTEST) test.TestServer
 
 testRnd: $(DISTTEST)
 	@java -ea -cp dist:$(DIST) test.Test 40 $(ntest) $(maxl) 10000000 $(probe) 0
