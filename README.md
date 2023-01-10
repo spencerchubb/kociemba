@@ -1,5 +1,7 @@
 # kociemba
 
+curl localhost:4000/solve?f=DUUBULDBFRBFRRULLLBRDFFFBLURDBFDFDRFRULBLUFDURRBLBDUDL
+
 Rubik's Cube solver and scrambler for Go.
 The solver is based on Herbert Kociemba's two-phase algorithm.
 Further improvements were made by Shuang Chen to make the search much faster and require less memory.

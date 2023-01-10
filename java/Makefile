@@ -2,9 +2,10 @@ SRC = \
 src/CoordCube.java \
 src/CubieCube.java \
 src/Search.java \
-src/Util.java \
+src/Server.java \
+src/Tables.java \
 src/Tools.java \
-src/Tables.java
+src/Util.java 
 
 TESTSRC = \
 test/test.java \
@@ -35,6 +36,9 @@ $(DIST): $(SRC)
 
 run: $(DIST)
 	@java -jar $(DIST)
+
+serve: $(DIST)
+	@java -ea -cp dist:$(DIST) kociemba.Server
 
 testTables: $(DISTTEST)
 	@java -ea -cp dist:$(DIST) TablesTest
