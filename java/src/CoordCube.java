@@ -12,8 +12,8 @@ class CoordCube {
     static final int N_PERM = 40320;
     static final int N_PERM_SYM = 2768;
     static final int N_MPERM = 24;
-    static final int N_COMB = Search.USE_COMBP_PRUN ? 140 : 70;
-    static final int P2_PARITY_MOVE = Search.USE_COMBP_PRUN ? 0xA5 : 0;
+    static final int N_COMB = 140;
+    static final int P2_PARITY_MOVE = 0xA5;
 
     // XMove = Move Table
     // XPrun = Pruning Table
@@ -365,11 +365,8 @@ class CoordCube {
         this.fsym = node.fsym;
         this.slice = node.slice;
         this.prun = node.prun;
-
-        if (Search.USE_CONJ_PRUN) {
-            this.twistc = node.twistc;
-            this.flipc = node.flipc;
-        }
+        this.twistc = node.twistc;
+        this.flipc = node.flipc;
     }
 
     void calcPruning(boolean isPhase1) {
@@ -380,8 +377,8 @@ class CoordCube {
                         getPruning(UDSliceFlipPrun,
                                 flip * N_SLICE + UDSliceConj[slice][fsym])),
                 Math.max(
-                        Search.USE_CONJ_PRUN ? getPruning(TwistFlipPrun,
-                                (twistc >> 3) << 11 | CubieCube.FlipS2RF[flipc ^ (twistc & 7)]) : 0,
+                        getPruning(TwistFlipPrun,
+                                (twistc >> 3) << 11 | CubieCube.FlipS2RF[flipc ^ (twistc & 7)]),
                         getPruning(TwistFlipPrun,
                                 twist << 11 | CubieCube.FlipS2RF[flip << 3 | (fsym ^ tsym)])));
     }
@@ -411,16 +408,14 @@ class CoordCube {
             return false;
         }
 
-        if (Search.USE_CONJ_PRUN) {
-            CubieCube pc = new CubieCube();
-            CubieCube.CornConjugate(cc, 1, pc);
-            CubieCube.EdgeConjugate(cc, 1, pc);
-            twistc = pc.getTwistSym();
-            flipc = pc.getFlipSym();
-            prun = Math.max(prun,
-                    getPruning(TwistFlipPrun,
-                            (twistc >> 3) << 11 | CubieCube.FlipS2RF[flipc ^ (twistc & 7)]));
-        }
+        CubieCube pc = new CubieCube();
+        CubieCube.CornConjugate(cc, 1, pc);
+        CubieCube.EdgeConjugate(cc, 1, pc);
+        twistc = pc.getTwistSym();
+        flipc = pc.getFlipSym();
+        prun = Math.max(prun,
+                getPruning(TwistFlipPrun,
+                        (twistc >> 3) << 11 | CubieCube.FlipS2RF[flipc ^ (twistc & 7)]));
 
         return prun <= depth;
     }

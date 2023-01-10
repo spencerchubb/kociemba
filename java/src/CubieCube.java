@@ -530,7 +530,7 @@ class CubieCube {
         CubieCube cc = new CubieCube();
         for (int i = 0; i < CoordCube.N_PERM_SYM; i++) {
             cc.setEPerm(EPermS2R[i]);
-            Perm2CombP[i] = (byte) (Util.getComb(cc.ea, 0, true) + (Search.USE_COMBP_PRUN ? Util.getNParity(EPermS2R[i], 8) * 70 : 0));
+            Perm2CombP[i] = (byte) (Util.getComb(cc.ea, 0, true) + (Util.getNParity(EPermS2R[i], 8) * 70));
             cc.invCubieCube();
             PermInvEdgeSym[i] = (char) cc.getEPermSym();
         }
