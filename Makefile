@@ -40,7 +40,7 @@ run: $(DIST)
 	@java -jar $(DIST)
 
 serve: $(DIST)
-	@java -ea -cp dist:$(DIST) src.Server
+	@nohup java -ea -cp dist:$(DIST) src.Server > dist/server.log &
 
 testTables: $(DISTTEST)
 	@java -ea -cp dist:$(DISTTEST) test.TestTables
