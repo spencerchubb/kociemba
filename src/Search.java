@@ -28,7 +28,6 @@ public class Search {
 
     // Options for research purpose.
     static final int MAX_PRE_MOVES = 20;
-    static final boolean TRY_THREE_AXES = true;
 
     protected static int MIN_P1LENGTH_PRE = 7;
     protected static int MAX_DEPTH2 = 12;
